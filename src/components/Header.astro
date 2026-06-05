@@ -1,0 +1,82 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const navItems = [
+  { href: `/${lang}`, label: t('nav.home') },
+  { href: `/${lang}/about`, label: t('nav.about') },
+  { href: `/${lang}/projects`, label: t('nav.projects') },
+  { href: `/${lang}/contact`, label: t('nav.contact') },
+];
+---
+
+<header class="header sticky top-0 z-50 transition-all duration-300">
+  <div class="header-bg absolute inset-0 bg-brand-bg/80 backdrop-blur-md opacity-0 transition-opacity"></div>
+  
+  <div class="section-container relative h-20 flex items-center justify-between">
+    <a href={`/${lang}`} class="text-2xl font-black tracking-tighter text-brand-text flex items-center gap-2">
+      <span class="w-8 h-8 bg-brand-primary rounded-full flex items-center justify-center text-white text-xs">H</span>
+      Phạm Quốc Hưng
+    </a>
+
+    <nav class="hidden md:flex items-center">
+      <ul class="flex items-center gap-1">
+        {navItems.map((item, index) => (
+          <li class="flex items-center">
+            <a href={item.href} class="px-4 py-2 text-sm font-bold text-brand-text hover:text-brand-primary transition-colors">
+              {item.label}
+            </a>
+            {index < navItems.length - 1 && (
+              <span class="w-px h-4 bg-brand-text/10"></span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="ml-8 pl-8 border-l border-brand-text/10">
+        <LanguageSwitcher />
+      </div>
+    </nav>
+
+    <button id="mobile-menu-toggle" class="md:hidden p-2 text-brand-text">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-brand-bg border-b border-brand-text/5 hanging-shadow">
+    <div class="section-container py-8 flex flex-col gap-6">
+      {navItems.map(item => (
+        <a href={item.href} class="text-xl font-black text-brand-text">
+          {item.label}
+        </a>
+      ))}
+      <div class="pt-6 border-t border-brand-text/5">
+        <LanguageSwitcher />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('.header');
+  const headerBg = document.querySelector('.header-bg');
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header?.classList.add('hanging-shadow');
+      headerBg?.classList.replace('opacity-0', 'opacity-100');
+    } else {
+      header?.classList.remove('hanging-shadow');
+      headerBg?.classList.replace('opacity-100', 'opacity-0');
+    }
+  });
+
+  toggle?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

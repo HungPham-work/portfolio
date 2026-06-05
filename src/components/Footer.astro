@@ -1,0 +1,31 @@
+---
+import SocialLinks from './SocialLinks.astro';
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-brand-bg py-24 border-t border-brand-text/5">
+  <div class="section-container flex flex-col items-center text-center">
+    <div class="mb-12">
+      <a href="/" class="text-3xl font-black tracking-tighter text-brand-text">
+        Phạm Quốc Hưng
+      </a>
+      <p class="text-brand-text/50 mt-4 max-w-sm">
+        Software Engineer & UI/UX Designer based in Vietnam. Creating digital experiences that matter.
+      </p>
+    </div>
+
+    <div class="mb-12">
+      <SocialLinks />
+    </div>
+    
+    <div class="pt-12 border-t border-brand-text/5 w-full flex flex-col md:flex-row justify-between items-center gap-6">
+      <p class="text-brand-text/30 text-xs font-bold uppercase tracking-widest">
+        © {currentYear} Phạm Quốc Hưng. ALL RIGHTS RESERVED.
+      </p>
+      <div class="flex gap-8">
+        <a href="#" class="text-brand-text/30 text-xs font-bold uppercase tracking-widest hover:text-brand-primary">Privacy Policy</a>
+        <a href="#" class="text-brand-text/30 text-xs font-bold uppercase tracking-widest hover:text-brand-primary">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

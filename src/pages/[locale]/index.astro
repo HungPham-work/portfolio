@@ -1,0 +1,83 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { useTranslations } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'vi' } },
+    { params: { locale: 'en' } },
+  ];
+}
+
+const { locale } = Astro.params;
+const t = useTranslations(locale as any);
+
+const homeData = await getEntry('home', locale as string);
+const featuredProjects = await getCollection('projects', ({ id, data }) => {
+  return id.startsWith(`${locale}/`) && data.featured;
+});
+
+if (!homeData) {
+  throw new Error(`Home data not found for locale: ${locale}`);
+}
+
+const { greeting, name, tagline, cta } = homeData.data;
+---
+
+<BaseLayout>
+  <Hero 
+    greeting={greeting}
+    name={name}
+    tagline={tagline}
+    cta={cta}
+    ctaLink={`/${locale}/projects`}
+  />
+
+  <section class="relative z-10 bg-[#A77D53] pt-10 pb-32">
+    <div class="section-container">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-20" data-aos="fade-up">
+        <div class="max-w-xl">
+          <p class="text-brand-primary font-bold uppercase tracking-widest text-xs mb-4 text-white/80">Portfolio</p>
+          <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+            {t('projects.title')}
+          </h2>
+          <div class="w-24 h-2 bg-brand-primary rounded-full"></div>
+        </div>
+        <a href={`/${locale}/projects`} class="mt-8 md:mt-0 bg-white text-[#5C3A2E] px-8 py-4 rounded-full font-bold transition-all hover:scale-105 shadow-xl text-sm">
+          Xem tất cả →
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {featuredProjects.map(project => (
+          <ProjectCard 
+            title={project.data.title}
+            description={project.data.description}
+            thumbnail={project.data.thumbnail}
+            technologies={project.data.technologies}
+            slug={project.id.split('/')[1].replace('.md', '')}
+            lang={locale as string}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-32 bg-brand-surface/30">
+    <div class="section-container text-center" data-aos="fade-up">
+      <h2 class="text-4xl md:text-6xl font-black text-brand-text mb-8">
+        Bạn có ý tưởng tuyệt vời?
+      </h2>
+      <p class="text-xl text-brand-text/60 mb-12 max-w-2xl mx-auto font-medium">
+        Tôi luôn sẵn sàng lắng nghe và cùng bạn biến những ý tưởng đó thành hiện thực với công nghệ hiện đại.
+      </p>
+      <a href={`/${locale}/contact`} class="btn-premium inline-flex mx-auto">
+        Bắt đầu thảo luận ngay
+      </a>
+    </div>
+  </section>
+</BaseLayout>

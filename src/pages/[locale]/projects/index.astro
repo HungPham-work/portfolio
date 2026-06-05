@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { useTranslations } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'vi' } },
+    { params: { locale: 'en' } },
+  ];
+}
+
+const { locale } = Astro.params;
+const t = useTranslations(locale as any);
+
+const projects = await getCollection('projects', ({ id }) => {
+  return id.startsWith(`${locale}/`);
+});
+---
+
+<BaseLayout title={t('nav.projects')}>
+  <section class="py-32">
+    <div class="section-container">
+      <div class="mb-24 max-w-3xl" data-aos="fade-up">
+        <p class="badge-teal mb-6 inline-block">Portfolio Showcase</p>
+        <h1 class="text-6xl md:text-8xl font-black mb-10 text-brand-text tracking-tighter leading-[0.9]">
+          Dự án <br/><span class="text-brand-primary">Tiêu biểu.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-brand-text/60 font-medium leading-relaxed">
+          Tập hợp các giải pháp kỹ thuật và trải nghiệm người dùng mà tôi đã dày công xây dựng. Mỗi dự án là một câu chuyện về sự sáng tạo và nỗ lực.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {projects.map(project => (
+          <ProjectCard 
+            title={project.data.title}
+            description={project.data.description}
+            thumbnail={project.data.thumbnail}
+            technologies={project.data.technologies}
+            slug={project.id.split('/')[1].replace('.md', '')}
+            lang={locale as string}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,9 @@
+<svg viewBox="0 0 500 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="slL" cx="50%" cy="0%" r="100%" fx="50%" fy="0%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M 150,0 L 500,1000 L 0,1000 Z" fill="url(#slL)" filter="blur(60px)"/>
+</svg>

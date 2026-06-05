@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'vi' } },
+    { params: { locale: 'en' } },
+  ];
+}
+
+const { locale } = Astro.params;
+const t = useTranslations(locale as any);
+---
+
+<BaseLayout title={t('nav.contact')}>
+  <section class="py-32 relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-brand-primary/5 blur-[150px] rounded-full"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-brand-secondary/5 blur-[120px] rounded-full"></div>
+
+    <div class="section-container relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-24" data-aos="fade-up">
+          <p class="badge-teal mb-6 inline-block">{t('nav.contact')}</p>
+          <h1 class="text-5xl md:text-7xl font-black mb-10 text-brand-text tracking-tighter">
+            Hãy cùng nhau xây dựng <br/> điều gì đó <span class="text-brand-primary">tuyệt vời.</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-brand-text/60 max-w-2xl mx-auto font-medium leading-relaxed">
+            Bạn có một ý tưởng cần hiện thực hóa hay chỉ đơn giản là muốn trò chuyện? Tôi luôn sẵn sàng kết nối.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Contact Card -->
+          <div class="bg-white p-12 rounded-[48px] border border-brand-text/5 shadow-2xl hanging-shadow" data-aos="fade-right">
+            <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-brand-primary mb-12">Thông tin liên hệ</h2>
+            
+            <div class="space-y-12">
+              <div>
+                <p class="text-xs font-bold text-brand-text/40 uppercase tracking-widest mb-4">Email</p>
+                <a href="mailto:hung@example.com" class="text-2xl md:text-3xl font-black hover:text-brand-primary transition-colors block break-all">
+                  hung@example.com
+                </a>
+              </div>
+              
+              <div>
+                <p class="text-xs font-bold text-brand-text/40 uppercase tracking-widest mb-4">Địa điểm</p>
+                <p class="text-2xl font-black text-brand-text">Hà Nội, Việt Nam</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Card -->
+          <div class="bg-brand-surface p-12 rounded-[48px] flex flex-col justify-between" data-aos="fade-left">
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-brand-text/40 mb-12">Mạng xã hội</h2>
+              <p class="text-2xl font-black text-brand-text mb-12 leading-tight">
+                Theo dõi và kết nối với tôi trên các nền tảng khác.
+              </p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl">
+              <SocialLinks />
+            </div>
+          </div>
+        </div>
+
+        <!-- Fun Fact or Greeting -->
+        <div class="mt-24 text-center" data-aos="fade-up">
+          <div class="inline-flex items-center gap-4 px-6 py-3 bg-white rounded-full border border-brand-text/5 shadow-lg text-sm font-bold animate-float">
+            <span class="flex h-3 w-3 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            Hiện đang sẵn sàng cho các dự án mới
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

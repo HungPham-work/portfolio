@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+
+  /* CareerPod Inspired Palette */
+  --color-brand-bg: #FAF8F6;
+  --color-brand-surface: #F3E4D2;
+  --color-brand-primary: #1E6A6E;
+  --color-brand-secondary: #DB4524;
+  --color-brand-text: #593B34;
+  --color-brand-muted: #929699;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fan-out: fanOut 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes fanOut {
+    0% { transform: rotate(0) translate(0); opacity: 0; }
+    100% { transform: var(--fan-transform); opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    color: var(--color-brand-text);
+  }
+  
+  body {
+    @apply bg-brand-bg text-brand-text;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-black tracking-tight;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-6 md:px-12;
+  }
+
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .btn-premium {
+    @apply bg-brand-primary text-white px-8 py-4 rounded-full font-bold transition-all 
+           hover:scale-105 hover:shadow-lg active:scale-95 flex items-center gap-2;
+  }
+
+  .badge-teal {
+    @apply bg-brand-primary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded;
+  }
+}
+
+/* Custom Utilities for the "CareerPod" look */
+.text-stroke-brown {
+  -webkit-text-stroke: 1px var(--color-brand-text);
+}
+
+.hanging-shadow {
+  box-shadow: 0 10px 30px -10px rgba(89, 59, 52, 0.1);
+}

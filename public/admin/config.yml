@@ -1,0 +1,60 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "home"
+    label: "Trang chủ"
+    folder: "src/content/home"
+    create: false
+    format: "frontmatter"
+    fields:
+      - {label: "Lời chào", name: "greeting", widget: "string"}
+      - {label: "Tên", name: "name", widget: "string"}
+      - {label: "Tagline", name: "tagline", widget: "text"}
+      - {label: "Nút CTA", name: "cta", widget: "string"}
+
+  - name: "about"
+    label: "Về tôi"
+    folder: "src/content/about"
+    create: false
+    format: "frontmatter"
+    fields:
+      - {label: "Tiêu đề", name: "title", widget: "string"}
+      - {label: "Avatar", name: "avatar", widget: "image", required: false}
+      - {label: "Bio", name: "bio", widget: "text"}
+      - {label: "Kỹ năng", name: "skills", widget: "list", field: {label: "Kỹ năng", name: "skill", widget: "string"}}
+      - {label: "Nội dung chi tiết", name: "body", widget: "markdown"}
+
+  - name: "projects_vi"
+    label: "Dự án (VI)"
+    folder: "src/content/projects/vi"
+    create: true
+    format: "frontmatter"
+    fields:
+      - {label: "Tiêu đề", name: "title", widget: "string"}
+      - {label: "Mô tả ngắn", name: "description", widget: "text"}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Công nghệ", name: "technologies", widget: "list"}
+      - {label: "Demo URL", name: "demoUrl", widget: "string", required: false}
+      - {label: "GitHub URL", name: "githubUrl", widget: "string", required: false}
+      - {label: "Nổi bật", name: "featured", widget: "boolean", default: false}
+      - {label: "Nội dung chi tiết", name: "body", widget: "markdown"}
+
+  - name: "projects_en"
+    label: "Dự án (EN)"
+    folder: "src/content/projects/en"
+    create: true
+    format: "frontmatter"
+    fields:
+      - {label: "Tiêu đề", name: "title", widget: "string"}
+      - {label: "Mô tả ngắn", name: "description", widget: "text"}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Công nghệ", name: "technologies", widget: "list"}
+      - {label: "Demo URL", name: "demoUrl", widget: "string", required: false}
+      - {label: "GitHub URL", name: "githubUrl", widget: "string", required: false}
+      - {label: "Nổi bật", name: "featured", widget: "boolean", default: false}
+      - {label: "Nội dung chi tiết", name: "body", widget: "markdown"}
