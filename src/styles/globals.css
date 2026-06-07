@@ -33,7 +33,12 @@
   }
   
   body {
-    @apply bg-brand-bg text-brand-text;
+    @apply text-brand-text;
+    -webkit-tap-highlight-color: transparent;
+    background-image: url('/images/bg_body.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -67,4 +72,15 @@
 
 .hanging-shadow {
   box-shadow: 0 10px 30px -10px rgba(89, 59, 52, 0.1);
+}
+
+* {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Cho phép select lại ở những chỗ cần thiết */
+p, h1, h2, h3, h4, h5, h6, span, a {
+  -webkit-user-select: text;
+  user-select: text;
 }
